@@ -11,6 +11,8 @@ crossScalaVersions := Seq("2.11.12", "2.12.4")
 libraryDependencies += guice
 libraryDependencies ++= Seq(evolutions, jdbc)
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.41"
+libraryDependencies += "org.webjars" % "bootstrap" % "4.0.0-2" 
+libraryDependencies += "org.webjars" % "bootstrap-material-design" % "4.1.1"
 
 // Test Database
 libraryDependencies += "com.h2database" % "h2" % "1.4.196"
