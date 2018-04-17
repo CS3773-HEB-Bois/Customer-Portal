@@ -13,8 +13,7 @@ public class Product extends Model {
 
     @Id
     public int id;
-
-    @Id
+    
     public int productCatigoryId;
 
     public int availableStock;
