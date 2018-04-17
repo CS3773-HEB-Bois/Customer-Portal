@@ -9,7 +9,7 @@ import play.data.format.*;
 import play.data.validation.*;
 
 @Entity
-public class Shopper extends Shopper {
+public class RegisteredShopper extends Shopper {
 
     @Id
     public int id;
