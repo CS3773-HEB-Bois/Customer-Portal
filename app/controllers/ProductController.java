@@ -1,3 +1,5 @@
 public class ProductController {
-    jk
+    public ProductController() {
+        
+    }
 }
