@@ -8,7 +8,8 @@ import play.data.format.*;
 import play.data.validation.*;
 
 @Entity
-public class ProductCategory extends Model {
+public class ProductCategory
+{
 
     @Id
     private int id;
