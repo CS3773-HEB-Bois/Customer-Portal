@@ -8,7 +8,7 @@ import play.data.format.*;
 import play.data.validation.*;
 
 @Entity
-public class Shopper extends Model {
+public class Shopper{
 
     @Id
     private int id;
@@ -21,13 +21,13 @@ public class Shopper extends Model {
      * set shopper firstName
      */
     public  void setFirstName(String name){
-        this.name = firstName;
+        this.firstName = name;
     }
     /**
      * set shopper lastName
      */
     public  void setLastName(String name){
-        this.name = lastName;
+        this.lastName = name;
     }
     /**
      * @return shopper id

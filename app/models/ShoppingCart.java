@@ -11,10 +11,10 @@ import play.data.validation.*;
 public class ShoppingCart {
 
     @Id
-    public int id;
+    private int id;
     
-    @OnetoOne
-    public Shopper shopper;
+    @OneToOne
+    private Shopper shopper;
     
     public int getId()
     {
