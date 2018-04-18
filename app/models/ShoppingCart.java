@@ -4,15 +4,14 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
-import io.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
 
 @Entity
-public class ShoppingCart extends Model {
+public class ShoppingCart {
 
     @Id
     public int id;
     
-    public int shopperId;
-}
+    @OnetoOne
+    public Shopper shopper;
