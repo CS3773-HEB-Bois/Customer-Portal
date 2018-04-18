@@ -4,25 +4,85 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
-import io.ebean.*;
+
 import play.data.format.*;
 import play.data.validation.*;
 
 @Entity
-public class Product extends Model {
+public class Product 
+{
 
     @Id
-    public int id;
+    private int id;
     
-    public int productCatigoryId;
+    @ManyToOne
+    private ProductCategory category;
 
-    public int availableStock;
+    private int availableStock;
 
-    public double price;
+    private double price;
 
-    @Constraints.Required
-    public String name;
+    private String name;
 
-    @Constraints.Required
-    public String location;
+    private String location;
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public ProductCategory getCategory()
+    {
+        return category;
+    }
+
+    public void setCategory(ProductCategory category)
+    {
+        this.category = category;
+    }
+
+    public int getAvailableStock()
+    {
+        return availableStock;
+    }
+
+    public void setAvailableStock(int availableStock)
+    {
+        this.availableStock = availableStock;
+    }
+
+    public double getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(double price)
+    {
+        this.price = price;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getLocation()
+    {
+        return location;
+    }
+
+    public void setLocation(String location)
+    {
+        this.location = location;
+    }
 }
