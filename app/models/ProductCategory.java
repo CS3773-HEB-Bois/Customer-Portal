@@ -1,4 +1,4 @@
-//Product.java
+//ProductCategory.java
 package models;
 
 import java.util.*;
@@ -9,20 +9,11 @@ import play.data.format.*;
 import play.data.validation.*;
 
 @Entity
-public class Product extends Model {
+public class ProductCategory extends Model {
 
     @Id
     public int id;
-    
-    public int productCatigoryId;
-
-    public int availableStock;
-
-    public double price;
 
     @Constraints.Required
     public String name;
-
-    @Constraints.Required
-    public String location;
 }
