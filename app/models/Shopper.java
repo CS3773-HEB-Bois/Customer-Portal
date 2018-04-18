@@ -19,37 +19,37 @@ public class Shopper extends Model {
     /**
      * set shopper id
      */
-    private void setID(int id){
+    public  void setID(int id){
         this.id = id;
     }
     /**
      * set shopper firstName
      */
-    private void setFirstName(String name){
+    public  void setFirstName(String name){
         this.name = firstName;
     }
     /**
      * set shopper lastName
      */
-    private void setLastName(String name){
+    public  void setLastName(String name){
         this.name = lastName;
     }
     /**
      * @return shopper id
      */
-    private int getID(){
+    public  int getID(){
         return id;
     }
     /**
      * @return shopper firstName
      */
-    private String getFirstName(){
+    public  String getFirstName(){
         return firstName;
     }
     /**
      * @return shopper lastName
      */
-    private String getLastName(){
+    public  String getLastName(){
         return lastName;
     }
 }
