@@ -4,16 +4,35 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
-import io.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
 
 @Entity
-public class ProductCategory extends Model {
+public class ProductCategory
+{
 
     @Id
-    public int id;
+    private int id;
 
-    @Constraints.Required
-    public String name;
+    private String name;
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 }
