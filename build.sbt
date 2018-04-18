@@ -2,7 +2,7 @@ name := """CS3773-Customer-Portal"""
 
 version := "1.0"
 
-lazy val root = (project in file(".")).enablePlugins(PlayJava)
+lazy val root = (project in file(".")).enablePlugins(PlayJava);
 
 scalaVersion := "2.12.4"
 
@@ -13,6 +13,10 @@ libraryDependencies ++= Seq(evolutions, jdbc)
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.41"
 libraryDependencies += "org.webjars" % "bootstrap" % "4.0.0-2" 
 libraryDependencies += "org.webjars" % "bootstrap-material-design" % "4.1.1"
+libraryDependencies ++= Seq(
+  javaJpa,
+  "org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final" // replace by your jpa implementation
+)
 
 // Test Database
 libraryDependencies += "com.h2database" % "h2" % "1.4.196"
