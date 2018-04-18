@@ -4,7 +4,6 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
-import io.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
 
@@ -12,11 +11,45 @@ import play.data.validation.*;
 public class RegisteredShopper extends Shopper {
 
     @Id
-    public int id;
+    private int id;
 
-    @Constraints.Required
-    public String username;
+    private String username;
 
-    @Constraints.Required
-    public String passwordHash;
+    private String passwordHash;
+    /**
+     * set shopper id
+     */
+    public void setID(int id){
+        this.id = id;
+    }
+    /**
+     * set shopper username
+     */
+    public  void setUsername(String username){
+        this.username = username;
+    }
+    /**
+     * set shopper passwordHash
+     */
+    public  void setPasswordHash(String passwordHash){
+        this.passwordHash = passwordHash;
+    }
+    /**
+     * @return shopper id
+     */
+    public  int getID(){
+        return id;
+    }
+    /**
+     * @return shopper username
+     */
+    public  String getUsername(){
+        return username;
+    }
+    /**
+     * @return shopper passwordHash
+     */
+    public  String getPasswordHash(){
+        return passwordHash;
+    }
 }
