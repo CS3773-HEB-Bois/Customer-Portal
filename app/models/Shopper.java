@@ -16,12 +16,7 @@ public class Shopper extends Model {
     private String firstName;
 
     private String lastName;
-    /**
-     * set shopper id
-     */
-    public  void setID(int id){
-        this.id = id;
-    }
+
     /**
      * set shopper firstName
      */
