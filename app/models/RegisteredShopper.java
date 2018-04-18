@@ -19,37 +19,37 @@ public class RegisteredShopper extends Shopper {
     /**
      * set shopper id
      */
-    private void setID(int id){
+    public void setID(int id){
         this.id = id;
     }
     /**
      * set shopper username
      */
-    private void setUsername(String username){
+    public  void setUsername(String username){
         this.username = username;
     }
     /**
      * set shopper passwordHash
      */
-    private void setPasswordHash(String passwordHash){
+    public  void setPasswordHash(String passwordHash){
         this.passwordHash = passwordHash;
     }
     /**
      * @return shopper id
      */
-    private int getID(){
+    public  int getID(){
         return id;
     }
     /**
      * @return shopper username
      */
-    private String getUsername(){
+    public  String getUsername(){
         return username;
     }
     /**
      * @return shopper passwordHash
      */
-    private String getPasswordHash(){
+    public  String getPasswordHash(){
         return passwordHash;
     }
 }
