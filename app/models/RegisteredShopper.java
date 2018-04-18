@@ -16,12 +16,7 @@ public class RegisteredShopper extends Shopper {
     private String username;
 
     private String passwordHash;
-    /**
-     * set shopper id
-     */
-    public void setID(int id){
-        this.id = id;
-    }
+ 
     /**
      * set shopper username
      */
