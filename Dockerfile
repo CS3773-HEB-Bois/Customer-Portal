@@ -13,4 +13,4 @@ RUN apk add --no-cache sbt
 ADD . /app
 WORKDIR /app
 
-ENTRYPOINT [ "sbt", "run" ]
+ENTRYPOINT [ "sbt", "-Djava.specification.version=8.1", "run" ]
