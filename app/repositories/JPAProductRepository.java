@@ -40,6 +40,13 @@ public class JPAProductRepository implements ProductRepository {
         return supplyAsync(() -> wrap(em -> list(em)), executionContext);
     }
 
+    public CompletionStage<ProductItem> createItem(ProductItem productItem) {
+        return supplyAsync(
+            () -> wrap(em -> insertItem(em, productItem)), 
+            executionContext
+        );
+    }
+
     private <T> T wrap(Function<EntityManager, T> function) {
         return jpaApi.withTransaction(function);
     }
@@ -49,8 +56,14 @@ public class JPAProductRepository implements ProductRepository {
         return product;
     }
 
+    private ProductItem insertItem(EntityManager em, ProductItem productItem) {
+        em.persist(productItem);
+        return productItem;
+    }
+
     private Stream<Product> list(EntityManager em) {
-        List<Product> products = em.createQuery("Select p from Product p", Product.class).getResultList();
+        List<Product> products = em.createQuery(
+            Queries.SELECT_PRODUCTS_QUERY, Product.class).getResultList();
         return products.stream();
     }
 
@@ -62,6 +75,10 @@ public class JPAProductRepository implements ProductRepository {
     private Product update(EntityManager em, Product product) {
         em.persist(product);
         return product;
+    }
+
+    class Queries {
+        public static final String SELECT_PRODUCTS_QUERY = "SELECT p from Product p";
     }
 
 }

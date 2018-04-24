@@ -1,18 +1,15 @@
-name := """CS3773-Customer-Portal"""
+name := """CS3773 Customer Portal"""
+organization := "edu.utsa.cs3773.software-eng"
 
-version := "1.0"
+version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayJava);
+lazy val root = (project in file(".")).enablePlugins(PlayJava)
 
 scalaVersion := "2.12.4"
-
-crossScalaVersions := Seq("2.11.12", "2.12.4")
 
 libraryDependencies += guice
 libraryDependencies ++= Seq(evolutions, jdbc)
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.41"
-libraryDependencies += "org.webjars" % "bootstrap" % "4.0.0-2" 
-libraryDependencies += "org.webjars" % "bootstrap-material-design" % "4.1.1"
 libraryDependencies ++= Seq(
   javaJpa,
   "org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final" // replace by your jpa implementation
@@ -28,8 +25,7 @@ libraryDependencies += "org.awaitility" % "awaitility" % "2.0.0" % Test
 // Make verbose tests
 testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
 
-enablePlugins(JavaAppPackaging)
-enablePlugins(DockerPlugin)
-enablePlugins(AshScriptPlugin)
+EclipseKeys.preTasks := Seq(compile in Compile, compile in Test)
+EclipseKeys.projectFlavor := EclipseProjectFlavor.Java           // Java project. Don't expect Scala IDE
+EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)  // Use .class files instead of generated .scala files for views and route
 
-dockerBaseImage       := "openjdk:jre-alpine"
