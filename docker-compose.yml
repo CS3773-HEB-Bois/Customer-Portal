@@ -1,0 +1,20 @@
+version: "3"
+services:
+  play:
+    build: .
+    ports:
+     - "9000:9000"
+    volumes:
+     - ./:/app
+    links:
+     - mysql
+    stdin_open: true
+    tty: true
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: cs3773pw
+      MYSQL_DATABASE: cs3773db
+      MYSQL_USER: cs3773user
+      MYSQL_PASSWORD: cs3773pw
