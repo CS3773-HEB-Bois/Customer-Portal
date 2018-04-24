@@ -47,14 +47,14 @@ public class Order{
     /**
      * get order subtotal
      */
-    public void getSubtotal(){
+    public double getSubtotal(){
         return subtotal;
     }
 
     /**
      * get Order delivery Fee
      */
-    public void getDeliveryFee(){
+    public double getDeliveryFee(){
         return deliveryFee;
     }
 
