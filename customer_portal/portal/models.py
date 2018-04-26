@@ -39,7 +39,7 @@ class ShoppingCart(models.Model):
 class ProductItem(models.Model):
     quantity = models.IntegerField(default=0)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    shopping_cart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE)
+    shopping_cart = models.ForeignKey(ShoppingCart, related_name='product_items', on_delete=models.CASCADE)
 
 
 class PaymentInformation(models.Model):
