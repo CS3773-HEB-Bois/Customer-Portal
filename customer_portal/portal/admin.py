@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Shopper, RegisteredShopper
+from . import models
 
-admin.site.register(Shopper)
-admin.site.register(RegisteredShopper)
+admin.site.register(models.Shopper)
+admin.site.register(models.RegisteredShopper)
+admin.site.register(models.Product)
+admin.site.register(models.ProductCategory)

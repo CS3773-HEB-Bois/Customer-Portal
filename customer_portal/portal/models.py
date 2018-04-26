@@ -9,9 +9,13 @@ class Product(models.Model):
     available_stock = models.IntegerField(default=0)
     price = models.IntegerField(default=0)
     name = models.CharField(max_length=255)
-    location = models.CharField(max_length=255)
+    location = models.CharField(max_length=255, blank=True)
     product_category = models.ForeignKey(
         ProductCategory, on_delete=models.SET_NULL, null=True)
+
+    @property
+    def price_in_dollars(self):
+        return self.price/100
 
 
 class Shopper(models.Model):
