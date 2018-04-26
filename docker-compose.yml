@@ -1,18 +1,19 @@
 version: "3"
 services:
-  play:
+  django:
     build: .
+    command: python manage.py runserver 0.0.0.0:9000
     ports:
      - "9000:9000"
     volumes:
      - ./:/app
     links:
      - mysql
-    stdin_open: true
-    tty: true
   mysql:
     image: mysql:5.7
     restart: always
+    volumes:
+      - ./mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: cs3773pw
       MYSQL_DATABASE: cs3773db
