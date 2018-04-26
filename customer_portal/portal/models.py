@@ -11,7 +11,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     location = models.CharField(max_length=255, blank=True)
     product_category = models.ForeignKey(
-        ProductCategory, on_delete=models.SET_NULL, null=True)
+        ProductCategory, on_delete=models.SET_NULL, related_name="products", null=True)
 
     @property
     def price_in_dollars(self):
