@@ -18,7 +18,7 @@ def product_show(request, product_id):
 
 def product_category_show(request, product_category_id):
     cat = ProductCategory.objects.get(pk = product_category_id)
-    #cat.products.all()
+    cat.products.all()
     context = {'cat': cat}
     return render (request, 'products/showcategory.html',context)
 
@@ -28,7 +28,9 @@ def cart_index(request):
     #    return redirect('/')
     shopping_cart = ShoppingCart.objects.get(pk=1)
     product_items = shopping_cart.product_items.all()
-
-
     return render(request, 'cart/index.html', {'product_items': product_items})
 
+def category_show(request):
+    categories = ProductCategory.objects.all()
+    context = {'categories': categories}
+    return render (request, 'products/showallcategory.html', context)
