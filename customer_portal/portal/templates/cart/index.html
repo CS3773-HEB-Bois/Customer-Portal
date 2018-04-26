@@ -39,22 +39,24 @@
             <div class="float-right">Total: $54.15</div>
           </div>
           <div class="card-body">
+            {% for item in product_items %}
             <div class="row">
               <div class="checkout-item">
                 <div class="checkout-item-img">
                   <img class="card-img-top" src="http://via.placeholder.com/25x25" alt="Card image cap">
                 </div>
                 <div class="checkout-item-info">
-                  Salmon, Rosted
+                  {{ item.product.name }}
                 </div>
                 <div class="checkout-item-qty">
-                  2
+                  {{ item.quantity }}
                 </div>
                 <div class="checkout-item-price">
-                  $54.15
+                  {{ item.product.price_in_dollars|stringformat:'.2f' }}
                 </div>
               </div>
             </div>
+            {% endfor %}
           </div>
         </div>
       </div>
