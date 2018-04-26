@@ -17,6 +17,11 @@ def product_show(request, product_id):
 
 def product_category_show(request, product_category_id):
     cat = ProductCategory.objects.get(pk = product_category_id)
-    #cat.products.all()
+    cat.products.all()
     context = {'cat': cat}
     return render (request, 'products/showcategory.html',context)
+
+def category_show(request):
+    categories = ProductCategory.objects.all()
+    context = {'categories': categories}
+    return render (request, 'products/showallcategory.html', context)
