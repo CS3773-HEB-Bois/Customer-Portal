@@ -76,13 +76,17 @@ WSGI_APPLICATION = 'customer_portal.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cs3773db',
-        'USER': 'cs3773user',
-        'PASSWORD': 'cs3773pw',
-        'HOST': 'mysql',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
+    # 'default': {
+    #    'ENGINE': 'django.db.backends.mysql',
+    #    'NAME': 'cs3773db',
+    #    'USER': 'cs3773user',
+    #    'PASSWORD': 'cs3773pw',
+    #    'HOST': 'mysql',
+    #    'PORT': '3306'
+    # }
 }
 
 
