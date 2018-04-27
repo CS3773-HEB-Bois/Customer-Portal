@@ -42,13 +42,17 @@ class RegisteredShopper(Shopper):
 class ShoppingCart(models.Model):
     shopper = models.ForeignKey(Shopper, on_delete=models.CASCADE)
 
+    @property
+    def total(self):
+        return sum(p.product.price_in_dollars*p.quantity for p in self.product_items.all())
+
 
 class ProductItem(models.Model):
     quantity = models.IntegerField(default=0)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     shopping_cart = models.ForeignKey(
         ShoppingCart, related_name='product_items', on_delete=models.CASCADE)
-    
+
     def __str__(self):
         return "{}: {}".format(self.product.name, self.quantity)
 
