@@ -28,17 +28,15 @@ class Product(models.Model):
 
 
 class Shopper(models.Model):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-
-
-class VisitorShopper(Shopper):
     pass
 
 
 class RegisteredShopper(Shopper):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
     username = models.CharField(max_length=255)
-    passwordHash = models.CharField(max_length=255)
+    password_hash = models.CharField(max_length=255)
 
 
 class ShoppingCart(models.Model):
@@ -50,6 +48,9 @@ class ProductItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     shopping_cart = models.ForeignKey(
         ShoppingCart, related_name='product_items', on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return "{}: {}".format(self.product.name, self.quantity)
 
 
 class PaymentInformation(models.Model):

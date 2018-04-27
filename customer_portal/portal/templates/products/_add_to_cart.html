@@ -1,4 +1,5 @@
-<form action="/your-name/" method="post">
+<form action="{% url 'add_to_cart' %}" method="post">
     <input id="product_id" type="hidden" name="product_id" value="{{ product.id }}">
-    <input type="submit" value="Add To Cart">
+    {%block button %}
+    {%endblock%}
 </form>
