@@ -5,12 +5,17 @@ from ..forms import AddToCartForm
 
 
 def index(request):
-    #cart_id = request.session.get('shopping_cart_id', '')
-    # if not cart_id:
-    #    return redirect('/')
-    shopping_cart = ShoppingCart.objects.get(pk=1)
-    product_items = shopping_cart.product_items.all()
-    return render(request, 'cart/index.html', {'product_items': product_items})
+    cart_id = request.session['shopping_cart_id']
+    if cart_id:
+        shopping_cart = ShoppingCart.objects.get(pk=cart_id)
+        if shopping_cart:
+            product_items = shopping_cart.product_items.all()
+            context = {
+                'product_items': product_items,
+                'cart': shopping_cart
+            }
+            return render(request, 'cart/index.html', context)
+    return redirect('/')
 
 
 def add_product(request):
