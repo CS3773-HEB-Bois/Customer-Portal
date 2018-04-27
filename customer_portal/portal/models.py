@@ -4,6 +4,12 @@ from django.db import models
 class ProductCategory(models.Model):
     name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Product categories"
+
 
 class Product(models.Model):
     available_stock = models.IntegerField(default=0)
@@ -16,6 +22,9 @@ class Product(models.Model):
     @property
     def price_in_dollars(self):
         return self.price/100
+
+    def __str__(self):
+        return self.name
 
 
 class Shopper(models.Model):
@@ -39,7 +48,8 @@ class ShoppingCart(models.Model):
 class ProductItem(models.Model):
     quantity = models.IntegerField(default=0)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    shopping_cart = models.ForeignKey(ShoppingCart, related_name='product_items', on_delete=models.CASCADE)
+    shopping_cart = models.ForeignKey(
+        ShoppingCart, related_name='product_items', on_delete=models.CASCADE)
 
 
 class PaymentInformation(models.Model):
