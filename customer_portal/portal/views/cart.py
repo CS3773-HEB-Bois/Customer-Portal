@@ -14,7 +14,8 @@ def index(request):
 
 
 def add_product(request):
-    shopping_cart = ShoppingCart.objects.get(pk=1)
+    shopping_cart_id = request.session['shopping_cart_id']
+    shopping_cart = ShoppingCart.objects.get(pk=shopping_cart_id)
     if request.method == 'POST':
         form = AddToCartForm(request.POST)
         if form.is_valid():
