@@ -19,6 +19,9 @@
 .product .btn {
   padding: 4px 10px;
 }
+.product form {
+  display: inline
+}
 .product-categories {
   margin-top: 20px;
 }
