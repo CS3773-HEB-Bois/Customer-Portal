@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.hashers import check_password, make_password
 
 
 class ProductCategory(models.Model):
@@ -34,13 +35,29 @@ class Shopper(models.Model):
 class RegisteredShopper(Shopper):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255)
-    username = models.CharField(max_length=255)
+    email = models.EmailField(unique=True, max_length=255)
+    username = models.CharField(unique=True, max_length=255)
     password_hash = models.CharField(max_length=255)
+
+    def set_password(self, password, password_confirmation):
+        if password == password_confirmation:
+            self.password_hash = make_password(password)
+            return True
+        return False
+
+    def has_password(self, password):
+        return check_password(password, self.password_hash)
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name
 
 
 class ShoppingCart(models.Model):
-    shopper = models.ForeignKey(Shopper, on_delete=models.CASCADE)
+    shopper = models.ForeignKey(
+        Shopper, related_name="shopping_carts", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
+    ordering = ['created_at']
 
     @property
     def total(self):

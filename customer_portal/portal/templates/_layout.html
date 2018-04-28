@@ -21,14 +21,15 @@
 <body class="bg-white">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="{% url 'home' %}">Navbar</a>
       <div class="shopping-cart navbar-text">
-        <a href="http://google.com">
+        <a href="{% url 'cart' %}">
           <i class="fas fa-shopping-cart fa-lg"></i>
         </a>
       </div>
     </div>
   </nav>
+  {% include '_messages.html' %}
   {% block content %} {% endblock %}
 
   <!-- Optional JavaScript -->
