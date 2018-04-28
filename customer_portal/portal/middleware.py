@@ -8,7 +8,6 @@ class ShoppingCartMiddleware:
     def __call__(self, request):
         if 'shopping_cart_id' not in request.session:
             if 'shopper_id' not in request.session:
-                print("Creating")
                 shopper = Shopper()
                 shopper.save()
                 shopper_id = shopper.id
