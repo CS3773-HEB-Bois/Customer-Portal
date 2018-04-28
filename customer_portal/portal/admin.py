@@ -7,4 +7,5 @@ admin.site.register(models.Product)
 admin.site.register(models.ProductCategory)
 admin.site.register(models.ShoppingCart)
 admin.site.register(models.ProductItem)
+admin.site.register(models.Coupon)
 

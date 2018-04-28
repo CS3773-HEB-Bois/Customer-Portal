@@ -52,28 +52,6 @@ class RegisteredShopper(Shopper):
         return self.first_name + " " + self.last_name
 
 
-class ShoppingCart(models.Model):
-    shopper = models.ForeignKey(
-        Shopper, related_name="shopping_carts", on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=True)
-    ordering = ['created_at']
-
-    @property
-    def total(self):
-        return sum(p.product.price_in_dollars*p.quantity for p in self.product_items.all())
-
-
-class ProductItem(models.Model):
-    quantity = models.IntegerField(default=0)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    shopping_cart = models.ForeignKey(
-        ShoppingCart, related_name='product_items', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return "{}: {}".format(self.product.name, self.quantity)
-
-
 class PaymentInformation(models.Model):
     pass
 
@@ -93,15 +71,42 @@ class Discount(models.Model):
 
 
 class Coupon(Discount):
-    code = models.CharField(max_length=128)
+    code = models.CharField(max_length=128, unique=True)
+
+    def __str__(self):
+        return self.code
+
+
+class ShoppingCart(models.Model):
+    shopper = models.ForeignKey(
+        Shopper, related_name="shopping_carts", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
+    ordering = ['created_at']
+
+    @property
+    def subtotal(self):
+        subtotal = sum(p.product.price *
+                       p.quantity for p in self.product_items.all())
+        return subtotal / 100
+
+
+class ProductItem(models.Model):
+    quantity = models.IntegerField(default=0)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    shopping_cart = models.ForeignKey(
+        ShoppingCart, related_name='product_items', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "{}: {}".format(self.product.name, self.quantity)
 
 
 class Order(models.Model):
-    subtotal = models.IntegerField(default=0)
     delivery_fee = models.IntegerField(default=0)
-    shopping_cart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE)
+    shopping_cart = models.OneToOneField(
+        ShoppingCart, on_delete=models.CASCADE)
     billing_information = models.ForeignKey(
         BillingInformation, on_delete=models.SET_NULL, null=True)
     delivery_preferences = models.ForeignKey(
         DeliveryPreferences, on_delete=models.SET_NULL, null=True)
-    discount = models.ManyToManyField(Discount)
+    discounts = models.ManyToManyField(Discount)

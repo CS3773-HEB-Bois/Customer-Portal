@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product, RegisteredShopper
+from .models import Product, RegisteredShopper, Coupon
 
 
 class AddToCartForm(forms.Form):
@@ -19,3 +19,8 @@ class RegistrationForm(forms.ModelForm):
         model = RegisteredShopper
         fields = ['email', 'username', 'first_name', 'last_name']
 
+
+class DiscountForm(forms.ModelForm):
+    class Meta:
+        model = Coupon
+        fields = ['code']
