@@ -1,10 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import check_password, make_password
+from django.contrib import messages
 from ..models import RegisteredShopper, ShoppingCart
 from ..forms import LoginForm, RegistrationForm
 
 
 def login(request):
+    shopper_id = request.session.get('shopper_id', None)
+    if shopper_id:
+        if RegisteredShopper.objects.filter(pk=shopper_id).exists():
+            messages.warning(request, 'You are already logged in')
+            return redirect('/')
     if request.method == "GET":
         login_form = LoginForm()
         context = {
@@ -31,6 +37,7 @@ def login(request):
                     shopper.save()
                     request.session['shopper_id'] = shopper.id
                     request.session['shopping_cart_id'] = shopping_cart.id
+                    messages.success(request, 'Succesfully logged in')
                     return redirect('/')
         context = {'form': login_form}
         return render(request, 'auth/login.html', context)
@@ -42,6 +49,7 @@ def logout(request):
             request.session.pop('shopper_id', None)
         if 'shopping_cart_id' in request.session:
             request.session.pop('shopping_cart_id', None)
+        messages.success(request, 'Succesfully logged out')
     return redirect('/')
 
 
@@ -65,4 +73,5 @@ def register(request):
                 shopping_cart.save()
                 request.session['shopper_id'] = shopper.id
                 request.session['shopping_cart_id'] = shopping_cart.id
+                messages.success(request, 'Succesfully registered!')
     return redirect('/')
