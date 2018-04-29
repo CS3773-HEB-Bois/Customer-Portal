@@ -77,4 +77,8 @@ def register(request):
                 request.session['shopper_id'] = shopper.id
                 request.session['shopping_cart_id'] = shopping_cart.id
                 messages.success(request, 'Succesfully registered!')
-    return redirect('/')
+                return redirect('/')
+        messages.warning(
+            request, 'Could not complete your registration. Please check your information and try again')
+        context = {'form': form}
+        return render(request, 'auth/register.html', context)

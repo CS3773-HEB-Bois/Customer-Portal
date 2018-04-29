@@ -13,7 +13,7 @@ urlpatterns = [
     path('checkout/discount', views.checkout.add_discount, name='add_discount'),
 
     path('categories', views.products.product_categories, name='categories'),
-    path('categories/<int:product_category_id>',
+    path('categories/<slug:product_category_slug>',
          views.products.product_category_show, name='view_category'),
 
     path('login', views.auth.login, name="login"),
