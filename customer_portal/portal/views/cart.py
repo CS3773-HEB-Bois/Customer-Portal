@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib import messages
 from ..models import Product, ProductCategory, ShoppingCart, ProductItem, Order
 from ..forms import AddToCartForm
 
@@ -34,4 +35,6 @@ def add_product(request):
             product_item.quantity += 1
             shopping_cart.product_items.add(product_item, bulk=False)
             shopping_cart.save()
+            messages.success(request, '%s added to cart' %
+                             product_item.product.name)
     return redirect('/')
