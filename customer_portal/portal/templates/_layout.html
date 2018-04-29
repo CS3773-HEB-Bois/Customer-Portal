@@ -1,8 +1,11 @@
 {% extends '_base.html' %}
+{% load static %}
 {% block body %}
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="{% url 'home' %}">Shoppr</a>
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'images/logo.jpg' %}" width="100px"></img>
+      </a>
       {% if request.session.shopper_info %}
         <div class="dropdown ml-md-auto">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="usr-dropdown" 
@@ -21,7 +24,7 @@
           </div>
         </div>
       {% else %}
-      <ul class="navbar-nav ml-md-auto login">
+      <ul class="navbar-nav ml-md-auto login-btn">
         <li class="nav-item">
           <a class="nav-link" href="{% url 'login' %}">Login</a>
         </li>

@@ -1,0 +1,10 @@
+{% extends '_layout.html' %}
+{% block content %}
+    <div class="container">
+        {% with title=cat.name %}
+            {% with products=cat.products.all %}
+                {% include 'products/_products.html' %}
+            {% endwith %}
+        {% endwith %}
+    </div>
+{% endblock %}

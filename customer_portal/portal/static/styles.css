@@ -72,12 +72,17 @@
 }
 .checkout-item .checkout-item-info {
   flex-grow: 7;
+  padding: 20px;
 }
 .checkout-item .checkout-item-qty {
   flex-grow: 1;
+  padding: 20px;
 }
 .checkout-item .checkout-item-price {
   flex-grow: 1;
+  padding: 20px;
+  font-weight: 500;
+  text-align: right;
 }
 .shopping-cart {
   padding-left: 6px;
@@ -95,10 +100,16 @@
 .dropdown-item {
   cursor: pointer;
 }
-.login .nav-item .nav-link {
+.login-btn .nav-item .nav-link {
   color: #6c757d;
   background-color: transparent;
   border-color: #ccc;
   text-transform: uppercase;
   font-weight: 500;
+}
+.login {
+  margin-top: 120px;
+}
+.register {
+  margin-top: 60px;
 }

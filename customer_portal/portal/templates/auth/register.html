@@ -1,5 +1,55 @@
-<form action="{% url 'register' %}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="submit"></input>
-</form>
+{% extends '_layout.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6">
+            <div class="card register">
+                <div class="card-body">
+                    <h4>Register</h4>
+                    <form action="{% url 'register' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="email">
+                                Email
+                            </label>
+                            <input name="email" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">
+                                Username
+                            </label>
+                            <input name="username" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="first_name">
+                                First Name
+                            </label>
+                            <input name="first_name" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name">
+                                Last Name
+                            </label>
+                            <input name="last_name" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">
+                                Password
+                            </label>
+                            <input name="password" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="password_confirmation">
+                                Password Confirmation
+                            </label>
+                            <input name="password_confirmation" class="form-control"/>
+                        </div>
+                        <input type="submit" class="btn btn-success btn-raised" value="Register"/> 
+                    </form>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

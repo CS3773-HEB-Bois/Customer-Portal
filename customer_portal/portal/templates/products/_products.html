@@ -1,0 +1,23 @@
+<div class="products">
+    <h4> {{ title }} </h4>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-sm-4 col-md-3">
+            <div class="card product">
+                <img class="card-img-top" src="http://via.placeholder.com/100x75" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-title">{{ product.name }}</p>
+                    <form action="{% url 'add_to_cart' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{ product.id }}"></input>
+                        <input type="submit" class="btn btn-raised btn-success add-item" value="&#43; Add"></input>
+                    </form>
+                    <span class="btn btn-sm btn-secondary float-right">
+                        ${{ product.price_in_dollars|stringformat:'.2f' }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
