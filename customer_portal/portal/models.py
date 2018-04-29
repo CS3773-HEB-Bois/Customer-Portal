@@ -1,9 +1,15 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.contrib.auth.hashers import check_password, make_password
 
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=40)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(ProductCategory, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -99,6 +105,10 @@ class ProductItem(models.Model):
 
     def __str__(self):
         return "{}: {}".format(self.product.name, self.quantity)
+    
+    @property
+    def total_in_dollars(self):
+        return (self.product.price * self.quantity)/100
 
 
 class Order(models.Model):

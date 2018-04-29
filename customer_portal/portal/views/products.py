@@ -21,11 +21,13 @@ def show(request, product_id):
 def product_categories(request):
     categories = ProductCategory.objects.all()
     context = {'categories': categories}
-    return render(request, 'products/showallcategory.html', context)
+    return render(request, 'products/categories/index.html', context)
 
 
-def product_category_show(request, product_category_id):
-    cat = ProductCategory.objects.get(pk=product_category_id)
-    cat.products.all()
-    context = {'cat': cat}
-    return render(request, 'products/showcategory.html', context)
+def product_category_show(request, product_category_slug):
+    cat = ProductCategory.objects.filter(slug=product_category_slug).first()
+    if cat:
+        cat.products.all()
+        context = {'cat': cat}
+        return render(request, 'products/categories/show.html', context)
+    return redirect('home')
