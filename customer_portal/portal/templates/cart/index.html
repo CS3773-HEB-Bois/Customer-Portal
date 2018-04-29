@@ -3,11 +3,20 @@
 {% block content %}
   <div class="container">
     <div class="checkout offset-sm-2 col-sm-8">
-      <h4>Cart</h4>
+      <div class="row">
+        <div class="col-sm-8">
+          <h4>Cart</h4>
+        </div>
+        <div class="col-sm-4 ml-md-auto">
+          <a href="{% url 'checkout' %}" class="btn btn-outline-secondary float-right">
+            Checkout
+          </a>
+        </div>
+      </div>
       <div class="row">
         <div class="card checkout-items">
           <div class="card-header">
-            <div class="float-right">${{cart.subtotal|stringformat:'.2f'}}</div>
+            <div class="subtotal float-right">${{cart.subtotal|stringformat:'.2f'}}</div>
           </div>
           <div class="card-body">
             {% for item in product_items %}

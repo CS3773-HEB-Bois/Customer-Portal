@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'customer_portal.portal.middleware.ShoppingCartMiddleware',
+    'customer_portal.portal.middleware.CurrentUserMiddleware',
 ]
 
 ROOT_URLCONF = 'customer_portal.urls'

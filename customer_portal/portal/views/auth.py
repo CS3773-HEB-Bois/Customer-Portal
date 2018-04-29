@@ -39,17 +39,20 @@ def login(request):
                     request.session['shopping_cart_id'] = shopping_cart.id
                     messages.success(request, 'Succesfully logged in')
                     return redirect('/')
+        messages.warning(request, 'Incorrect username / password')
         context = {'form': login_form}
         return render(request, 'auth/login.html', context)
 
 
 def logout(request):
-    if request.method == "GET":
+    if request.method == "POST":
         if 'shopper_id' in request.session:
             request.session.pop('shopper_id', None)
         if 'shopping_cart_id' in request.session:
             request.session.pop('shopping_cart_id', None)
-        messages.success(request, 'Succesfully logged out')
+        if 'shopper_info' in request.session:
+            request.session.pop('shopper_info', None)
+        messages.info(request, 'Succesfully logged out')
     return redirect('/')
 
 
