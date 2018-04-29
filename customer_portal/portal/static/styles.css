@@ -56,3 +56,7 @@
 .checkout-item .checkout-item-price {
   flex-grow: 1;
 }
+.shopping-cart {
+  padding-top: 3px;
+  padding-left: 6px;
+}

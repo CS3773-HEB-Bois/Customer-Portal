@@ -44,11 +44,13 @@ def login(request):
 
 
 def logout(request):
-    if request.method == "GET":
+    if request.method == "POST":
         if 'shopper_id' in request.session:
             request.session.pop('shopper_id', None)
         if 'shopping_cart_id' in request.session:
             request.session.pop('shopping_cart_id', None)
+        if 'shopper_info' in request.session:
+            request.session.pop('shopper_info', None)
         messages.success(request, 'Succesfully logged out')
     return redirect('/')
 

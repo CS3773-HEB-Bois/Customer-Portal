@@ -21,7 +21,31 @@
 <body class="bg-white">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="{% url 'home' %}">Navbar</a>
+      <a class="navbar-brand" href="{% url 'home' %}">Shoppr</a>
+      {% if request.session.shopper_info %}
+        <div class="dropdown ml-md-auto">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="usr-dropdown" 
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ request.session.shopper_info.first_name }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="usr-dropdown">
+            <a class="dropdown-item" href="#">Orders</a>
+            <div class="dropdown-divider"></div>
+            <form action="{% url 'logout' %}" id="logout-form" method="POST">
+              {% csrf_token %}
+              <a class="dropdown-item" onclick="$('#logout-form').submit();">
+                Logout
+              </a>
+            </form>
+          </div>
+        </div>
+      {% else %}
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>
+      </ul>
+      {% endif %}
       <div class="shopping-cart navbar-text">
         <a href="{% url 'cart' %}">
           <i class="fas fa-shopping-cart fa-lg"></i>
