@@ -1,6 +1,0 @@
-{% for category in categories %}
-    {{category.name}}<br />
-    {% for product in category.products.all %}
-        {{product.name}}
-    {% endfor %}
-{% endfor %}

@@ -1,0 +1,12 @@
+{% extends '_layout.html' %} {% block content %}
+
+<div class="container">
+    {% for category in categories %} 
+        {% with title=category.name %} 
+        {% with products=category.products.all %} 
+            {% include 'products/_products.html' %} 
+        {% endwith %} 
+        {% endwith %} 
+    {% endfor %}
+</div>
+{% endblock %}
