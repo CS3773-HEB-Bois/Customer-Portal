@@ -1,11 +1,194 @@
-{% extends '_layout.html' %} 
-
-{% block content %}
-    {{ shopping_cart.subtotal }}
-
-    <form action="{% url 'add_discount' %}" method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Apply"></input>
-    </form>
+{% extends '_layout.html' %} {% block content %}
+<div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5> Billing Address </h5>
+                        <div class="form-group">
+                            <label for="billing_address1"> Address line 1</label>
+                            <input 
+                                name="billing_address1" type="text" 
+                                form="order-form" class="form-control"
+                                value="{{form.data.billing_address1}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="billing_address2"> Address line 2</label>
+                            <input 
+                                name="billing_address2" type="text" 
+                                form="order-form" class="form-control"
+                                value="{{form.data.billing_address2}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="billing_city"> City </label>
+                            <input 
+                                name="billing_city" type="text" 
+                                form="order-form" class="form-control"
+                                value="{{form.data.billing_city}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="billing_state"> State </label>
+                            <input 
+                                name="billing_state" type="text" 
+                                form="order-form" class="form-control"
+                                value="{{form.data.billing_state}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="billing_zip"> Zip </label>
+                            <input 
+                                name="billing_zip" type="text" 
+                                form="order-form" class="form-control"
+                                value="{{form.data.billing_zip}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 10px">
+                    <div class="card-body">
+                        <h5> Payment Options </h5>
+                        {% for option in payment_options %}
+                        <div class="radio">
+                            <label>
+                                <input 
+                                    type="radio" name="payment_option" form="order-form"
+                                    id="payment_option_{{option.id}}" value="{{option.id}}"> 
+                                        {{ option.formatted_name }}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="margin-bottom: 10px">
+                    <div class="card-body">
+                        <h5> Delivery Address </h5>
+                        <div class="form-group">
+                            <label for="delivery_address1"> Address line 1</label>
+                            <input 
+                                name="delivery_address1" type="text" 
+                                form="order-form" class="form-control" 
+                                value="{{form.data.delivery_address1}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="delivery_address2"> Address line 2</label>
+                            <input 
+                                name="delivery_address2" type="text" 
+                                form="order-form" class="form-control" 
+                                value="{{form.data.delivery_address2}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="delivery_city"> City </label>
+                            <input 
+                                name="delivery_city" type="text" 
+                                form="order-form" class="form-control"
+                                value="{{form.data.delivery_city}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="delivery_state"> State </label>
+                            <input 
+                                name="delivery_state" type="text" 
+                                form="order-form" class="form-control"
+                                value="{{form.data.delivery_state}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="delivery_zip"> Zip </label>
+                            <input 
+                                name="delivery_zip" type="text" 
+                                form="order-form" class="form-control"
+                                value="{{form.data.delivery_zip}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="margin-bottom: 10px">
+                    <div class="card-body">
+                        <h5> Delivery Options </h5>
+                        <div class="radio">
+                            <label>
+                                <input 
+                                    type="radio" name="delivery_option" form="order-form"
+                                    id="delivery_option_standard" value="standard"> 
+                                    Standard Shipping (4-7 days)
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input 
+                                    type="radio" name="delivery_option" form="order-form"
+                                    id="delivery_option_expedited" value="expedited"> 
+                                    Expedited Shipping (1-2 days)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5> Order Summary </h5>
+                        <ul class="list-group">
+                            <a class="list-group-item">
+                                <span class="label label-default label-pill">
+                                    Item(s):
+                                </span>
+                                <span class="label label-default label-pill">
+                                    ${{ shopping_cart.subtotal|stringformat:'.2f'}}
+                                </span>
+                            </a>
+                            <a class="list-group-item">
+                                <span class="label label-default label-pill">
+                                    Tax:
+                                </span>
+                                <span class="label label-default label-pill">
+                                    ${{ order.tax|stringformat:'.2f'}}
+                                </span>
+                            </a>
+                            <a class="list-group-item">
+                                <span class="label label-default label-pill">
+                                    Delivery Fee:
+                                </span>
+                                <span class="label label-default label-pill">
+                                    ${{ shopping_cart.subtotal|stringformat:'.2f'}}
+                                </span>
+                            </a>
+                            <a class="list-group-item">
+                                <span class="label label-default label-pill">
+                                    Discount:
+                                </span>
+                                <span class="label label-default label-pill">
+                                    - ${{ order.total_discount|stringformat:'.2f'}}
+                                </span>
+                            </a>
+                            <a class="list-group-item">
+                                <span class="label label-default label-pill">
+                                    Total:
+                                </span>
+                                <span class="label label-default label-pill">
+                                    ${{ order.total|stringformat:'.2f'}}
+                                </span>
+                            </a>
+                        </ul>
+                        <form action="{% url 'checkout' %}" method="POST" id="order-form">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-raised btn-success" value="Place Order">
+                        </form>
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 10px">
+                    <div class="card-body">
+                        <h5> Discount </h5>
+                        <form action="{% url 'add_discount' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="code"> Code </label>
+                                <input name="code" type="text" class="form-control">
+                            </div>
+                            <input type="submit" class="btn btn-raised btn-success" value="Apply"></input>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

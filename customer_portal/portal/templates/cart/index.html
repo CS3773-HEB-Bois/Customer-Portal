@@ -16,7 +16,7 @@
       <div class="row">
         <div class="card checkout-items">
           <div class="card-header">
-            <div class="subtotal float-right">${{cart.subtotal|stringformat:'.2f'}}</div>
+            <div class="subtotal float-right"> Subtotal: ${{cart.subtotal|stringformat:'.2f'}}</div>
           </div>
           <div class="card-body">
             {% for item in product_items %}
