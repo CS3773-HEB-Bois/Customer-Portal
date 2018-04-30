@@ -23,6 +23,7 @@ class Product(models.Model):
     price = models.IntegerField(default=0)
     name = models.CharField(max_length=255)
     location = models.CharField(max_length=255, blank=True)
+    image_url = models.CharField(max_length=3076, blank=True)
     product_category = models.ForeignKey(
         ProductCategory, on_delete=models.SET_NULL, related_name="products", null=True)
 
