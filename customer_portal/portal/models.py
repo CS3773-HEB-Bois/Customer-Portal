@@ -59,7 +59,20 @@ class RegisteredShopper(Shopper):
 
 
 class PaymentInformation(models.Model):
-    pass
+    shopper = models.ForeignKey(
+        Shopper, on_delete=models.CASCADE, related_name='payment_options')
+
+
+class CreditCardInformation(PaymentInformation):
+    card_type = models.CharField(max_length=255)
+    card_number = models.CharField(max_length=255)
+    cvv = models.CharField(max_length=4)
+    month = models.CharField(max_length=2)
+    year = models.CharField(max_length=2)
+
+    @property
+    def formatted_name(self):
+        return self.card_type + ' ****' + self.card_number[-4:]
 
 
 class BillingInformation(models.Model):
@@ -70,6 +83,7 @@ class BillingInformation(models.Model):
 
 class DeliveryPreferences(models.Model):
     deliveryAddress = models.CharField(max_length=255)
+    deliverySpeed = models.CharField(max_length=255)
 
 
 class Discount(models.Model):
@@ -105,18 +119,32 @@ class ProductItem(models.Model):
 
     def __str__(self):
         return "{}: {}".format(self.product.name, self.quantity)
-    
+
     @property
     def total_in_dollars(self):
         return (self.product.price * self.quantity)/100
 
 
 class Order(models.Model):
+    TAX_CONSTANT = .0825
+
     delivery_fee = models.IntegerField(default=0)
     shopping_cart = models.OneToOneField(
         ShoppingCart, on_delete=models.CASCADE)
-    billing_information = models.ForeignKey(
+    billing_information = models.OneToOneField(
         BillingInformation, on_delete=models.SET_NULL, null=True)
-    delivery_preferences = models.ForeignKey(
+    delivery_preferences = models.OneToOneField(
         DeliveryPreferences, on_delete=models.SET_NULL, null=True)
     discounts = models.ManyToManyField(Discount)
+
+    @property
+    def tax(self):
+        return self.shopping_cart.subtotal * self.TAX_CONSTANT
+
+    @property
+    def total_discount(self):
+        return sum(discount.amount/100 for discount in self.discounts.all())
+
+    @property
+    def total(self):
+        return (self.shopping_cart.subtotal + self.tax) - self.total_discount
